@@ -9,9 +9,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import logger from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
-import { contactsReducer } from './contacts/contacts-reducer';
+import { phonebookApi } from './contacts/contacts-slice';
 import authReducer from './auth/auth-slice';
 
 const authPersistConfig = {
@@ -26,13 +25,13 @@ const middleware = getDefaultMiddleware => [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
-  logger,
+  phonebookApi.middleware,
 ];
 
 const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
-    //contacts: contactsReducer,
+    [phonebookApi.reducerPath]: phonebookApi.reducer,
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
