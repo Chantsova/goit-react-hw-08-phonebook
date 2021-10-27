@@ -5,6 +5,8 @@ import defaultAvatar from '../../defaultAvatar.png';
 
 export default function AuthNav() {
   const name = useSelector(authSelectors.getUserName);
+  const email = useSelector(authSelectors.getUserEmail);
+
   const avatar = defaultAvatar;
 
   const dispatch = useDispatch();
@@ -12,7 +14,9 @@ export default function AuthNav() {
   return (
     <div>
       <img src={avatar} alt="avatar"></img>
-      <span>Welcome, {name}!</span>
+      <span>
+        Welcome, {name} ({email})!
+      </span>
       <button type="button" onClick={() => dispatch(authOperations.logOut())}>
         Log Out
       </button>

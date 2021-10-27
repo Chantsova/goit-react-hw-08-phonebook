@@ -1,36 +1,58 @@
 import './App.css';
-import React, { Suspense } from 'react';
-import { Route, Switch } from 'react-router';
+import React, { Suspense, useEffect, lazy } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Switch } from 'react-router';
 import AppBar from './components/AppBar/AppBar';
-import HomeView from './views/HomeView';
-import RegisterView from './views/RegisterView';
-import LoginView from './views/LoginView';
-import PhonebookView from './views/PhonebookView';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
+import Container from './components/Container/Container';
+import * as authOperations from './components/redux/auth/auth-operations';
+import { authSelectors } from './components/redux/auth/auth-selectors';
+
+const HomeView = lazy(() => import('./views/HomeView'));
+const RegisterView = lazy(() => import('./views/RegisterView'));
+const LoginView = lazy(() => import('./views/LoginView'));
+const PhonebookView = lazy(() => import('./views/PhonebookView'));
 
 export default function App() {
+  const dispatch = useDispatch();
+  const isFethingCurrentUser = useSelector(
+    authSelectors.getIsFetchingCurrentUser,
+  );
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <>
-      <AppBar />
+      {!isFethingCurrentUser && (
+        <>
+          <AppBar />
 
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <Switch>
-          <Route exact path="/">
-            <HomeView />
-          </Route>
+          <Suspense fallback={<h1>Loading...</h1>}>
+            {/* <Container> */}
+            <Switch>
+              <PublicRoute exact path="/">
+                <HomeView />
+              </PublicRoute>
 
-          <Route exact path="/register">
-            <RegisterView />
-          </Route>
+              <PublicRoute exact path="/register" restricted>
+                <RegisterView />
+              </PublicRoute>
 
-          <Route exact path="/login">
-            <LoginView />
-          </Route>
+              <PublicRoute exact path="/login" redirect restricted>
+                <LoginView />
+              </PublicRoute>
 
-          <Route exact path="/phonebook">
-            <PhonebookView />
-          </Route>
-        </Switch>
-      </Suspense>
+              <PrivateRoute path="/phonebook">
+                <PhonebookView />
+              </PrivateRoute>
+            </Switch>
+            {/* </Container> */}
+          </Suspense>
+        </>
+      )}
     </>
   );
 }

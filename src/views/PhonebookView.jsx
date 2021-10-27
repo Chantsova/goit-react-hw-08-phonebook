@@ -40,9 +40,10 @@ export default function PhonebookView() {
             <h1 className="phonebook__title">Phonebook</h1>
             <ContactForm />
           </section>
-          <Filter filter={onFilterContacts} />
+
           <section className="contacts">
             <h2 className="contacts__title">Contacts</h2>
+            <Filter filter={onFilterContacts} />
             <ContactList contacts={contacts} isFetching={isFetching} />
           </section>
         </div>
