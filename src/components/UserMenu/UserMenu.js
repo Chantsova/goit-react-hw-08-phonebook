@@ -1,8 +1,8 @@
-import "./UserMenu.css";
-import { useDispatch, useSelector } from "react-redux";
-import * as authOperations from "../redux/auth/auth-operations";
-import * as authSelectors from "../redux/auth/auth-selectors";
-import defaultAvatar from "../../defaultAvatar.png";
+import './UserMenu.css';
+import { useDispatch, useSelector } from 'react-redux';
+import * as authOperations from '../../redux/auth/auth-operations';
+import * as authSelectors from '../../redux/auth/auth-selectors';
+import defaultAvatar from '../../images/defaultAvatar.png';
 
 export default function AuthNav() {
   const name = useSelector(authSelectors.getUserName);
@@ -22,7 +22,7 @@ export default function AuthNav() {
       ></img>
       <div className="userMenu__content">
         <span className=" userMenu__item">
-          Welcome, <span className="userMenu__item--accent">{name}</span>{" "}
+          Welcome, <span className="userMenu__item--accent">{name}</span>{' '}
         </span>
         <span className="userMenu__item">({email})</span>
         <button

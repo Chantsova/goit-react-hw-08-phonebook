@@ -1,6 +1,6 @@
 import './ContactList.css';
 import { toast, Toaster } from 'react-hot-toast';
-import { useDeleteContactMutation } from '../redux/contacts/contacts-slice';
+import { useDeleteContactMutation } from '../../redux/contacts/contacts-slice';
 
 const ContactList = ({ contacts, isFetching }) => {
   const [deleteContact] = useDeleteContactMutation();

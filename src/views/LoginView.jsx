@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import * as authOperation from "../components/redux/auth/auth-operations";
-import { Toaster } from "react-hot-toast";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as authOperation from '../redux/auth/auth-operations';
+import { Toaster } from 'react-hot-toast';
 
 export default function LoginView() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "email":
+      case 'email':
         setEmail(value);
         break;
 
-      case "password":
+      case 'password':
         setPassword(value);
         break;
 
@@ -26,15 +26,15 @@ export default function LoginView() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     dispatch(authOperation.logIn({ email, password }));
     reset();
   };
 
   const reset = () => {
-    setEmail("");
-    setPassword("");
+    setEmail('');
+    setPassword('');
   };
 
   return (

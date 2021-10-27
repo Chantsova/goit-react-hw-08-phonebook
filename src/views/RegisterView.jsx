@@ -1,28 +1,28 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import * as authOperation from "../components/redux/auth/auth-operations";
-import { Toaster } from "react-hot-toast";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as authOperation from '../redux/auth/auth-operations';
+import { Toaster } from 'react-hot-toast';
 
 export default function RegisterView() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "name":
+      case 'name':
         setName(value);
         break;
 
-      case "email":
+      case 'email':
         setEmail(value);
         break;
 
-      case "password":
+      case 'password':
         setPassword(value);
         break;
 
@@ -31,16 +31,16 @@ export default function RegisterView() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     dispatch(authOperation.register({ name, email, password }));
     reset();
   };
 
   const reset = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
   return (

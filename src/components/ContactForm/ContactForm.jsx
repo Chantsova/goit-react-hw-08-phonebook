@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   useAddContactMutation,
   useFetchContactsQuery,
-} from '../redux/contacts/contacts-slice';
+} from '../../redux/contacts/contacts-slice';
 
 export default function ContactForm() {
   const [name, setName] = useState('');

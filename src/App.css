@@ -94,7 +94,7 @@
       var(--wrapper-primary-color),
       var(--wrapper-secondary-color)
     ),
-    url("./tel.png");
+    url('./images/tel.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right;
@@ -107,7 +107,7 @@
 
 .title {
   text-align: center;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 22px;
   font-style: italic;
 }
