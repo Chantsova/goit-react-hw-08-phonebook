@@ -1,9 +1,9 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import axios from 'axios';
+import { createApi } from "@reduxjs/toolkit/query/react";
+import axios from "axios";
 
 //I got this solution from redux-toolkit documentation example "Customizing queries with baseQuery​"
 const axiosBaseQuery =
-  ({ baseUrl } = { baseUrl: '' }) =>
+  ({ baseUrl } = { baseUrl: "" }) =>
   async ({ url, method, data }) => {
     try {
       const result = await axios({ url: baseUrl + url, method, data });
@@ -17,11 +17,11 @@ const axiosBaseQuery =
   };
 
 export const phonebookApi = createApi({
-  reducerPath: 'phonebookApi',
+  reducerPath: "phonebookApi",
   baseQuery: axiosBaseQuery({
-    baseUrl: 'https://connections-api.herokuapp.com',
+    baseUrl: "https://connections-api.herokuapp.com",
   }),
-  tagTypes: ['Contact'],
+  tagTypes: ["Contact"],
   refetchOnMountOrArgChange: true,
   refetchOnReconnect: true,
 
@@ -29,35 +29,27 @@ export const phonebookApi = createApi({
     return {
       fetchContacts: build.query({
         query: () => ({
-          url: '/contacts',
-          method: 'GET',
+          url: "/contacts",
+          method: "GET",
         }),
-        providesTags: ['Contact'],
+        providesTags: ["Contact"],
       }),
 
       addContact: build.mutation({
-        query: newContact => ({
-          url: '/contacts',
-          method: 'POST',
+        query: (newContact) => ({
+          url: "/contacts",
+          method: "POST",
           data: newContact,
         }),
-        invalidatesTags: ['Contact'],
+        invalidatesTags: ["Contact"],
       }),
 
       deleteContact: build.mutation({
-        query: contactID => ({
+        query: (contactID) => ({
           url: `/contacts/${contactID}`,
-          method: 'DELETE',
+          method: "DELETE",
         }),
-        invalidatesTags: ['Contact'],
-      }),
-
-      changeContact: build.mutation({
-        query: contactID => ({
-          url: `/contacts/${contactID}`,
-          method: 'PATCH',
-        }),
-        invalidatesTags: ['Contact'],
+        invalidatesTags: ["Contact"],
       }),
     };
   },
