@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Suspense, useEffect, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch } from 'react-router';
+import { Switch, Redirect } from 'react-router';
 import AppBar from './components/AppBar/AppBar';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -49,13 +49,11 @@ export default function App() {
                   <LoginView />
                 </PublicRoute>
 
-                <PublicRoute path="*" redirectTo="/" restricted>
-                  <HomeView />
-                </PublicRoute>
-
                 <PrivateRoute exact path="/phonebook" redirectTo="/login">
                   <PhonebookView />
                 </PrivateRoute>
+
+                <Redirect from="*" to="/" />
               </Switch>
             </div>
           </Suspense>
