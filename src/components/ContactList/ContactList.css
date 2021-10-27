@@ -1,5 +1,7 @@
 .contacts__list {
+  height: 50vh;
   margin-top: 20px;
+  overflow-y: auto;
 }
 
 .contacts__item {

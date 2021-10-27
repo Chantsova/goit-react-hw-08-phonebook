@@ -1,10 +1,10 @@
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { useFetchContactsQuery } from '../components/redux/contacts/contacts-slice';
-import * as authSelectors from '../components/redux/auth/auth-selectors';
-import ContactForm from '../components/ContactForm/ContactForm';
-import ContactList from '../components/ContactList/ContactList';
-import Filter from '../components/Filter/Filter';
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useFetchContactsQuery } from "../components/redux/contacts/contacts-slice";
+import * as authSelectors from "../components/redux/auth/auth-selectors";
+import ContactForm from "../components/ContactForm/ContactForm";
+import ContactList from "../components/ContactList/ContactList";
+import Filter from "../components/Filter/Filter";
 
 export default function PhonebookView() {
   const [contacts, setContacts] = useState([]);
@@ -18,14 +18,14 @@ export default function PhonebookView() {
     }
   }, [data]);
 
-  const onFilterContacts = filter => {
+  const onFilterContacts = (filter) => {
     if (filter) {
       const normalizedFilter = filter.toLowerCase();
 
       return setContacts(
-        contacts.filter(contact =>
-          contact.name.toLowerCase().includes(normalizedFilter),
-        ),
+        contacts.filter((contact) =>
+          contact.name.toLowerCase().includes(normalizedFilter)
+        )
       );
     } else {
       setContacts(data);
@@ -35,9 +35,8 @@ export default function PhonebookView() {
   return (
     <>
       {isLoggedIn ? (
-        <div className="wrapper">
-          <section className="phonebook">
-            <h1 className="phonebook__title">Phonebook</h1>
+        <div className="phonebook">
+          <section className="addNew">
             <ContactForm />
           </section>
 

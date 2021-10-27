@@ -1,0 +1,28 @@
+.userMenu {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.userMenu__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userMenu__avatar {
+  margin-right: 8px;
+}
+
+.userMenu__item {
+  margin-bottom: 8px;
+}
+
+.userMenu__item--accent {
+  font-weight: 600;
+}
+
+.userMenu__btn {
+  outline: none;
+  background-color: var(--light-btn-color);
+}
