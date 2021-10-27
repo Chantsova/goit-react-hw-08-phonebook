@@ -1,40 +1,36 @@
 import './ContactList.css';
 import { toast, Toaster } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import {
-  useFetchContactsQuery,
-  useDeleteContactMutation,
-} from '../redux/contacts/contacts-slice';
-import Filter from '../Filter/Filter';
-import { authSelectors } from '../redux/auth/auth-selectors';
+import { useDeleteContactMutation } from '../redux/contacts/contacts-slice';
+// import Filter from '../Filter/Filter';
+// import { authSelectors } from '../redux/auth/auth-selectors';
 
-const ContactList = () => {
-  const [contacts, setContacts] = useState([]);
+const ContactList = ({ contacts, isFetching }) => {
+  // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
-  const { data, isFetching } = useFetchContactsQuery();
+  // useEffect(() => {
+  //   // if (isLoggedIn && data) {
+  //   //   setContacts(data);
+  //   // } else {
+  //   //   console.log('aaaaaaa')
+  //   // }
+  //   // if (!isLoggedIn) {
+  //     console.log(isLoggedIn)
 
-  //const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  // }, [data, isLoggedIn]);
 
-  useEffect(() => {
-    if (data) {
-      setContacts(data);
-    }
-  }, [data]);
+  // const onFilterContacts = filter => {
+  //   if (filter) {
+  //     const normalizedFilter = filter.toLowerCase();
 
-  const onFilterContacts = filter => {
-    if (filter) {
-      const normalizedFilter = filter.toLowerCase();
-
-      return setContacts(
-        contacts.filter(contact =>
-          contact.name.toLowerCase().includes(normalizedFilter),
-        ),
-      );
-    } else {
-      setContacts(data);
-    }
-  };
+  //     return setContacts(
+  //       contacts.filter(contact =>
+  //         contact.name.toLowerCase().includes(normalizedFilter),
+  //       ),
+  //     );
+  //   } else {
+  //     setContacts(data);
+  //   }
+  // };
 
   const [deleteContact] = useDeleteContactMutation();
   const onDeleteContact = async contactId => {
@@ -44,31 +40,33 @@ const ContactList = () => {
 
   return (
     <>
-      <div>
-        <Filter filter={onFilterContacts} />
-        {contacts && (
-          <ul className="contacts__list">
-            {contacts.map(({ name, number, id }) => (
-              <li className="contacts__item" key={id}>
-                <p className="contacts__name">{name}</p>
-                <p className="contacts__number">{number}</p>
-                <button
-                  className="contacts__btn"
-                  onClick={() => onDeleteContact(id)}
-                >
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-
+      {isFetching ? (
+        <h1>Waiting...</h1>
+      ) : (
         <div>
-          <Toaster />
-        </div>
+          {/* <Filter filter={onFilterContacts} /> */}
+          {contacts && (
+            <ul className="contacts__list">
+              {contacts.map(({ name, number, id }) => (
+                <li className="contacts__item" key={id}>
+                  <p className="contacts__name">{name}</p>
+                  <p className="contacts__number">{number}</p>
+                  <button
+                    className="contacts__btn"
+                    onClick={() => onDeleteContact(id)}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
 
-        {isFetching && <h1>Waiting...</h1>}
-      </div>
+          <div>
+            <Toaster />
+          </div>
+        </div>
+      )}
     </>
   );
 };

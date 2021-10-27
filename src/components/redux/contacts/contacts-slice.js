@@ -22,6 +22,8 @@ export const phonebookApi = createApi({
     baseUrl: 'https://connections-api.herokuapp.com',
   }),
   tagTypes: ['Contact'],
+  refetchOnMountOrArgChange: true,
+  refetchOnReconnect: true,
 
   endpoints(build) {
     return {
